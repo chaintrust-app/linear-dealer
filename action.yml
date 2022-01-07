@@ -1,0 +1,8 @@
+name: 'Linear Ticket Dealer'
+description: 'Handle the status of a linear ticket based on a PR situation'
+on:
+  push:
+    branches: [ master ]
+runs:
+  using: 'node16'
+  main: 'index.js'
