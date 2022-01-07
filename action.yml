@@ -1,8 +1,9 @@
 name: 'Linear Ticket Dealer'
 description: 'Handle the status of a linear ticket based on a PR situation'
-on:
-  push:
-    branches: [ master ]
-runs:
-  using: 'node16'
-  main: 'index.js'
+on: [push]
+jobs:
+  linear_job:
+    runs-on: ubuntu-latest
+    name: A job to test linear connection
+    using: 'node16'
+    main: 'dist/index.js'
