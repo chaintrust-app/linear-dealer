@@ -2,4 +2,4 @@ name: 'Linear Tickel Dealer'
 description: 'Deals ticket in a Linear Project'
 runs:
   using: 'node16'
-  main: 'index.js'
+  main: 'dist/index.js'
