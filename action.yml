@@ -4,7 +4,6 @@ inputs:
   LINEAR_API_KEY:  # id of input
     description: 'Linear Api Key'
     required: true
-    default: ${{ secrets.LINEAR_API_KEY }}
 
 runs:
   using: 'node16'
