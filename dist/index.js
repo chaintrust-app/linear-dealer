@@ -8469,11 +8469,12 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 const {LinearClient} = __nccwpck_require__(6570)
-const linear = new LinearClient({
-    apiKey: process.env.LINEAR_API_KEY
-});
 const core = __nccwpck_require__(9678);
 const github = __nccwpck_require__(4425);
+
+const linear = new LinearClient({
+    apiKey: core.getInput('LINEAR_API_KEY')
+});
 
 async function getMyIssues() {
     const issues = await linear.issues()

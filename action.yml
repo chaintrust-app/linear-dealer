@@ -1,5 +1,11 @@
 name: 'Linear Tickel Dealer'
 description: 'Deals ticket in a Linear Project'
+inputs:
+  LINEAR_API_KEY:  # id of input
+    description: 'Linear Api Key'
+    required: true
+    default: ''
+
 runs:
   using: 'node16'
   main: 'dist/index.js'
