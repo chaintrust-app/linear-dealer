@@ -8468,27 +8468,29 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-const { LinearClient } = __nccwpck_require__(6570)
-/*const linear = new LinearClient({
-    apiKey: "lin_api_2IczXFvoXNVm9LeXPNyo7DcQOtOaZ7eusoQuT2OO"
-});*/
+const {LinearClient} = __nccwpck_require__(6570)
+const linear = new LinearClient({
+    apiKey: process.env.LINEAR_API_KEY
+});
 const core = __nccwpck_require__(9678);
 const github = __nccwpck_require__(4425);
 
 async function getMyIssues() {
-    /*const issues = await linear.issues()
-    console.log(issues.issueSearch("CHA-921"))*/
-    console.log(process.env.LINEAR_API_KEY)
-    console.log(process.env)
+    const issues = await linear.issues()
+    console.log("------------------------------------------------")
+    console.log("------------------------------------------------")
+    console.log("issue CHA-921", issues.issueSearch("CHA-921"))
+    console.log("------------------------------------------------")
+    console.log("------------------------------------------------")
 }
 
 try {
     getMyIssues()
-    //const payload = JSON.stringify(github.context.payload, undefined, 2)
-    //const time = (new Date()).toTimeString();
-    //core.setOutput("time", time);
+    const payload = JSON.stringify(github.context.payload, undefined, 2)
+    const time = (new Date()).toTimeString();
+    core.setOutput("time", time);
     // Get the JSON webhook payload for the event that triggered the workflow
-    //console.log(`The event payload: ${payload}`);
+    console.log(`The event payload: ${payload}`);
 } catch (error) {
     core.setFailed(error.message);
 }
