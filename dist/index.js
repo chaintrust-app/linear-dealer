@@ -8486,6 +8486,7 @@ async function getMyIssues() {
 }
 
 try {
+    console.log("input LINEAR API KEY", core.getInput('LINEAR_API_KEY'))
     getMyIssues()
     const payload = JSON.stringify(github.context.payload, undefined, 2)
     const time = (new Date()).toTimeString();
