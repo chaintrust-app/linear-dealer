@@ -22,7 +22,9 @@ try {
     const time = (new Date()).toTimeString();
     core.setOutput("time", time);
     // Get the JSON webhook payload for the event that triggered the workflow
-    console.log(`The event payload: ${payload}`);
+    console.log(`The event payload: ${payload.commits.message}`);
+    const regex = /CHA-\d{3,4}/
+    console.log(`grep the CHAs: ${payload.commits.message.matchAll(regex)}`)
 } catch (error) {
     core.setFailed(error.message);
 }
