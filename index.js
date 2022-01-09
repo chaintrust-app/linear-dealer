@@ -6,25 +6,28 @@ const linear = new LinearClient({
     apiKey: core.getInput('LINEAR_API_KEY')
 });
 
-async function getMyIssues() {
-    const issue921 = await linear.issueSearch("CHA-921")
+async function updateIssue(issueID) {
+    const issue = await linear.issue(issueID)
     console.log("------------------------------------------------")
     console.log("------------------------------------------------")
-    console.log("issue CHA-921", issue921)
+    console.log(`issue: ${JSON.stringify(issue.state)}`)
+    console.log(`issue: ${JSON.stringify(issue)}`)
     console.log("------------------------------------------------")
     console.log("------------------------------------------------")
 }
 
 try {
-    console.log("input LINEAR API KEY", core.getInput('LINEAR_API_KEY'))
-    getMyIssues()
-    const payload = JSON.stringify(github.context.payload, undefined, 2)
-    const time = (new Date()).toTimeString();
-    core.setOutput("time", time);
-    // Get the JSON webhook payload for the event that triggered the workflow
-    console.log(`The event payload: ${payload.commits.message}`);
-    const regex = /CHA-\d{3,4}/
-    console.log(`grep the CHAs: ${payload.commits.message.matchAll(regex)}`)
+    const payload = github.context.payload
+    const commitMessage = payload.head_commit.message;
+    const regex = /CHA-\d{3,4}/g;
+    const matchedTickets = Array.from(commitMessage.matchAll(regex), m => m[0]);
+
+    console.log(`Commit message: ${commitMessage}`);
+    console.log(`grep the CHAs: ${JSON.stringify(matchedTickets)}`);
+
+    matchedTickets.map((ticket) => {
+        updateIssue(ticket)
+    })
 } catch (error) {
     core.setFailed(error.message);
 }
