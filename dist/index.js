@@ -8477,20 +8477,18 @@ const linear = new LinearClient({
 });
 
 async function updateIssue(issueID) {
+    // get all states
     const workflowStates = await linear.workflowStates()
     const states = workflowStates.nodes
     // find state "Delivered"
-    const newDesiredState = states.filter((state) => state.name === "Delivered")
+    const newDesiredState = states.filter((state) => state.name === "Delivered")[0]
+    // find the issue to update
     const issue = await linear.issue(issueID)
+    // update to the new state
+    const updateStatus = await linear.issueUpdate(issue.id, {stateId: newDesiredState.id})
 
-    console.log("------------------------------------------------")
-    console.log("------------------------------------------------")
-    console.log(`state: ${JSON.stringify(issue.state)}`)
-    console.log(`_state: ${JSON.stringify(issue._state.id)}`)
-    console.log(`newDesiredState: ${JSON.stringify(newDesiredState)}`)
-    console.log(`workflowStates: ${JSON.stringify(workflowStates)}`)
-    console.log(`issue: ${JSON.stringify(issue)}`)
-    console.log("------------------------------------------------")
+
+    console.log(`Update : ${JSON.stringify(updateStatus)}`)
     console.log("------------------------------------------------")
 }
 
@@ -8500,8 +8498,10 @@ try {
     const regex = /CHA-\d{3,4}/g;
     const matchedTickets = Array.from(commitMessage.matchAll(regex), m => m[0]);
 
+    console.log("------------------------------------------------")
     console.log(`Commit message: ${commitMessage}`);
     console.log(`grep the CHAs: ${JSON.stringify(matchedTickets)}`);
+    console.log("------------------------------------------------")
 
     matchedTickets.map((ticket) => {
         updateIssue(ticket)
