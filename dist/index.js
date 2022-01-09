@@ -8477,10 +8477,10 @@ const linear = new LinearClient({
 });
 
 async function getMyIssues() {
-    const issues = await linear.issues()
+    const issue921 = await linear.issueSearch("CHA-921")
     console.log("------------------------------------------------")
     console.log("------------------------------------------------")
-    console.log("issue CHA-921", issues.issueSearch("CHA-921"))
+    console.log("issue CHA-921", issue921)
     console.log("------------------------------------------------")
     console.log("------------------------------------------------")
 }
