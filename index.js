@@ -31,7 +31,7 @@ try {
     console.log("------------------------------------------------")
     console.log(`Commit message: ${commitMessage}`);
     console.log(`grep the CHAs: ${JSON.stringify(matchedTickets)}`);
-    console.log(`pull request: ${JSON.stringify(payload.pull_request)}`)
+    console.log(`pull request: ${JSON.stringify(payload)}`)
     console.log("------------------------------------------------")
 
     matchedTickets.map((ticket) => {
