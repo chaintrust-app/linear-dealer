@@ -11,7 +11,7 @@ async function updateIssue(issueID) {
     const workflowStates = await linear.workflowStates()
     const states = workflowStates.nodes
     // find state "Delivered"
-    const newDesiredState = states.filter((state) => state.name === "Delivered")[0]
+    const newDesiredState = states.filter((state) => state.name.includes("Delivered"))[0]
     // find the issue to update
     const issue = await linear.issue(issueID)
     // update to the new state
